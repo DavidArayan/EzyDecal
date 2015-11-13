@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+using DecalFramework;
+
 // a basic grid implementation for storage and query of point data
 public class BroadphaseGrid : ScriptableObject {
 	
@@ -440,8 +442,10 @@ public class BroadphaseGrid : ScriptableObject {
 					TriangleData dp = grid[hash].dataPt[j];
 					
 					Vector3[] tPoints = dp.getTransformedPoints();
+
+                    Vector3 nPt = point + direction;
 					
-					if (NearestPointTest.intersectLineTriangle(point, point + direction, tPoints[0], tPoints[1], tPoints[2], ref r)) {
+					if (TriangleTests.IntersectLineTriangle(ref point, ref nPt, ref tPoints[0], ref tPoints[1], ref tPoints[2], ref r)) {
 						ret = true;
 						float npSqDist = (point - r).sqrMagnitude;
 						
@@ -487,8 +491,11 @@ public class BroadphaseGrid : ScriptableObject {
 					TriangleData dp = grid[hash].dataPt[j];
 					
 					Vector3[] tPoints = dp.getTransformedPoints();
+
+                    Vector3 np = new Vector3();
+
+                    TriangleTests.ClosestPointTriangle(ref tPoints[0], ref tPoints[1], ref tPoints[2], ref point, ref np);
 					
-					Vector3 np = NearestPointTest.closestPtPointTriangle(point, tPoints[0], tPoints[1], tPoints[2]);
 					float npSqDist = (point - np).sqrMagnitude;
 						
 					if (npSqDist < nearestSqDist) {

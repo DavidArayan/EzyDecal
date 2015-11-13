@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using DecalFramework;
 
 public class PlaneIntersection : MonoBehaviour {
 	
@@ -10,7 +11,7 @@ public class PlaneIntersection : MonoBehaviour {
 	private List<Vector3> intPoints = new List<Vector3>();
 	
 	void OnDrawGizmos() {
-		Gizmos.color = new Color(0,1,0,1);
+		/*Gizmos.color = new Color(0,1,0,1);
 		Vector3 size = new Vector3(0.2f,0.2f,0.2f);
 		
 		Gizmos.DrawCube(gameObject.transform.position, size);
@@ -96,6 +97,6 @@ public class PlaneIntersection : MonoBehaviour {
 			Gizmos.color = new Color(1,0,0,1);
 			
 			Gizmos.DrawCube(intPoints[i], size);
-		}
+		}*/
 	}
 }

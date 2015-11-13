@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DecalFramework;
 
 public class ConvexHull : MonoBehaviour {
 	
@@ -29,8 +30,8 @@ public class ConvexHull : MonoBehaviour {
 		for (int i = 0; i < objs.Length; i++) {
 			positions.Add(objs[i].transform.position);
 		}
-		
-		NearestPointTest.triangulate(positions, tris, n);
+
+        HullTests.ConvexHull2DTriangulated(positions, tris, ref n);
 		
 		Gizmos.color = new Color(0,1,0,1);
 		

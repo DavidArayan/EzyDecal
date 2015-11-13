@@ -16,7 +16,7 @@ public class BarycentricTest : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float u = 0.0f;
+		/*float u = 0.0f;
 		float v = 0.0f;
 		float w = 0.0f;
 		
@@ -24,7 +24,7 @@ public class BarycentricTest : MonoBehaviour {
 			NearestPointTest.barycentric(tri1.transform.position, tri2.transform.position, tri3.transform.position, test.transform.position, ref u, ref v, ref w);
 			
 			Debug.Log("U: " + u + " V: " + v + " W: " + w + " TOTAL: " + (u + v + w));
-		}
+		}*/
 	}
 	
 	void OnDrawGizmos() {

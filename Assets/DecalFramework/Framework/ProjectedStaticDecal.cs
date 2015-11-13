@@ -3,6 +3,8 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
+using DecalFramework;
+
 public class ProjectedStaticDecal : MonoBehaviour {
 	
 	[HideInInspector]
@@ -185,14 +187,14 @@ public class ProjectedStaticDecal : MonoBehaviour {
 		Vector3 dirRightPos = gameObject.transform.position - (dirRight * gameObject.transform.localScale.x);
 		
 		
-		yPosPlane.setValues(dirUp, dirUpPos);
-		yNegPlane.setValues(dirDown, dirDownPos);
+		yPosPlane.SetValues(dirUp, dirUpPos);
+		yNegPlane.SetValues(dirDown, dirDownPos);
 		
-		zPosPlane.setValues(dirForward, dirForwardPos);
-		zNegPlane.setValues(dirBack, dirBackPos);
+		zPosPlane.SetValues(dirForward, dirForwardPos);
+		zNegPlane.SetValues(dirBack, dirBackPos);
 		
-		xPosPlane.setValues(dirLeft, dirLeftPos);
-		xNegPlane.setValues(dirRight, dirRightPos);
+		xPosPlane.SetValues(dirLeft, dirLeftPos);
+		xNegPlane.SetValues(dirRight, dirRightPos);
 		
 		if (data != null) {
 			
@@ -216,24 +218,23 @@ public class ProjectedStaticDecal : MonoBehaviour {
 				newTris.Clear();
 				lpoints.Clear();
 				
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[0], oobb.oobbCoordsTrans[1], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[0], oobb.oobbCoordsTrans[2], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[0], oobb.oobbCoordsTrans[4], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[1], oobb.oobbCoordsTrans[3], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[1], oobb.oobbCoordsTrans[5], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[2], oobb.oobbCoordsTrans[6], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[2], oobb.oobbCoordsTrans[3], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[3], oobb.oobbCoordsTrans[7], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[4], oobb.oobbCoordsTrans[5], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[4], oobb.oobbCoordsTrans[6], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[5], oobb.oobbCoordsTrans[7], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				if (NearestPointTest.intersectLineTriangle(oobb.oobbCoordsTrans[6], oobb.oobbCoordsTrans[7], point1, point2, point3, ref lineInt)) lpoints.Add(lineInt);
-				
-				NearestPointTest.intersectSixPlanesTriangleUF(xPosPlane, xNegPlane, yPosPlane, yNegPlane, zPosPlane, zNegPlane, point1, point2, point3, lpoints);
-				
-				NearestPointTest.sideOfSixPlanesFilter(xPosPlane, xNegPlane, yPosPlane, yNegPlane, zPosPlane, zNegPlane, lpoints, points);
-				
-				NearestPointTest.triangulate(points, newTris, n);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[0], ref oobb.oobbCoordsTrans[1], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[0], ref oobb.oobbCoordsTrans[2], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[0], ref oobb.oobbCoordsTrans[4], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[1], ref oobb.oobbCoordsTrans[3], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[1], ref oobb.oobbCoordsTrans[5], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[2], ref oobb.oobbCoordsTrans[6], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[2], ref oobb.oobbCoordsTrans[3], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[3], ref oobb.oobbCoordsTrans[7], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[4], ref oobb.oobbCoordsTrans[5], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[4], ref oobb.oobbCoordsTrans[6], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[5], ref oobb.oobbCoordsTrans[7], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+				if (TriangleTests.IntersectLineTriangle(ref oobb.oobbCoordsTrans[6], ref oobb.oobbCoordsTrans[7], ref point1, ref point2, ref point3, ref lineInt)) lpoints.Add(lineInt);
+
+                NDPlane.IntersectSixPlanesTriangle(xPosPlane, xNegPlane, yPosPlane, yNegPlane, zPosPlane, zNegPlane, ref point1, ref point2, ref point3, lpoints);
+                NDPlane.SideOfSixPlanesFilter(xPosPlane, xNegPlane, yPosPlane, yNegPlane, zPosPlane, zNegPlane, lpoints, points);
+
+                HullTests.ConvexHull2DTriangulated(points, newTris, ref n);
 			
 				for (int j = 0; j < newTris.Count; j += 3) {
 					Vector3 v1 = newTris[j + 0];
@@ -254,116 +255,40 @@ public class ProjectedStaticDecal : MonoBehaviour {
 					// point is new, compute new UV coordinates for it
 					if (!NearestPointTest.approxContains(vertexPoints, v1, tolerance, ref vec1)) {
 						Vector3 transVec = gameObject.transform.InverseTransformPoint(vertexPoints[vec1]);
-						
-						/*transVec.x = (transVec.x + 1) / 2;
-						transVec.y = (transVec.y + 1) / 2;
-						transVec.z = (transVec.z + 1) / 2;
-						
-						transVec.Normalize();
-						
-						float UV_U = 0.5f + ((Mathf.Atan2(transVec.x, transVec.y) / (2 * Mathf.PI)));
-						float UV_V = 0.5f - (2.0f * (Mathf.Asin(transVec.z) / (2 * Mathf.PI)));
-						
-						uvPoints.Add(new Vector2(UV_U, UV_V));*/
 							
 						if (!cubeMap) {
 							uvPoints.Add(new Vector2((transVec.y + 1) / 2, (transVec.z + 1) / 2));	
 						}
 						else {
-							uvPoints.Add(NearestPointTest.cubeMap3DV(transVec,n));
+							uvPoints.Add(HullTests.CubeMap3DV(ref transVec, ref n));
 						}
 					}
 					
 					if (!NearestPointTest.approxContains(vertexPoints, v2, tolerance, ref vec2)) {
 						Vector3 transVec = gameObject.transform.InverseTransformPoint(vertexPoints[vec2]);
-						
-						/*transVec.x = (transVec.x + 1) / 2;
-						transVec.y = (transVec.y + 1) / 2;
-						transVec.z = (transVec.z + 1) / 2;
-						
-						transVec.Normalize();
-						
-						float UV_U = 0.5f + ((Mathf.Atan2(transVec.x, transVec.y) / (2 * Mathf.PI)));
-						float UV_V = 0.5f - (2.0f * (Mathf.Asin(transVec.z) / (2 * Mathf.PI)));
-						
-						uvPoints.Add(new Vector2(UV_U, UV_V));*/
 							
 						if (!cubeMap) {
 							uvPoints.Add(new Vector2((transVec.y + 1) / 2, (transVec.z + 1) / 2));	
 						}
 						else {
-							uvPoints.Add(NearestPointTest.cubeMap3DV(transVec,n));
+							uvPoints.Add(HullTests.CubeMap3DV(ref transVec, ref n));
 						}
 					}
 					
 					if (!NearestPointTest.approxContains(vertexPoints, v3, tolerance, ref vec3)) {
 						Vector3 transVec = gameObject.transform.InverseTransformPoint(vertexPoints[vec3]);
-						
-						/*transVec.x = (transVec.x + 1) / 2;
-						transVec.y = (transVec.y + 1) / 2;
-						transVec.z = (transVec.z + 1) / 2;
-						
-						transVec.Normalize();
-						
-						float UV_U = 0.5f + ((Mathf.Atan2(transVec.x, transVec.y) / (2 * Mathf.PI)));
-						float UV_V = 0.5f - (2.0f * (Mathf.Asin(transVec.z) / (2 * Mathf.PI)));
-						
-						uvPoints.Add(new Vector2(UV_U, UV_V));*/
 							
 						if (!cubeMap) {
 							uvPoints.Add(new Vector2((transVec.y + 1) / 2, (transVec.z + 1) / 2));	
 						}
 						else {
-							uvPoints.Add(NearestPointTest.cubeMap3DV(transVec,n));
+							uvPoints.Add(HullTests.CubeMap3DV(ref transVec, ref n));
 						}
 					}
 					
 					
-					// add or get index of vec1
-					/*if (vertexPoints.Contains(v1)) {
-						vec1 = vertexPoints.IndexOf(v1);
-					}
-					else {
-						vertexPoints.Add(v1);
-							
-						Vector3 transVec = gameObject.transform.InverseTransformPoint(v1);
-							
-						uvPoints.Add(new Vector2((transVec.y + 1) / 2, (transVec.z + 1) / 2));
-							
-						vec1 = vertexPoints.Count - 1;
-					}
-					
-					// add or get index of vec2
-					if (vertexPoints.Contains(v2)) {
-						vec2 = vertexPoints.IndexOf(v2);
-					}
-					else {
-						vertexPoints.Add(v2);
-							
-						Vector3 transVec = gameObject.transform.InverseTransformPoint(v2);
-							
-						uvPoints.Add(new Vector2((transVec.y + 1) / 2, (transVec.z + 1) / 2));
-							
-						vec2 = vertexPoints.Count - 1;
-					}
-					
-					// add or get index of vec3
-					if (vertexPoints.Contains(v3)) {
-						vec3 = vertexPoints.IndexOf(v3);
-					}
-					else {
-						vertexPoints.Add(v3);
-							
-						Vector3 transVec = gameObject.transform.InverseTransformPoint(v3);
-							
-						uvPoints.Add(new Vector2((transVec.y + 1) / 2, (transVec.z + 1) / 2));
-							
-						vec3 = vertexPoints.Count - 1;
-					}*/
-					
-					
 					//Debug.Log(vertexPoints.Count + " " + vec1 + " " + vec2 + " " + vec3);
-					if (NearestPointTest.isTriClockwise(vertexPoints[vec1], vertexPoints[vec2], vertexPoints[vec3], n)) {
+					if (HullTests.IsTriClockwise(vertexPoints[vec1], vertexPoints[vec2], vertexPoints[vec3], n)) {
 						indexPoints.Add(vec1);
 						indexPoints.Add(vec2);
 						indexPoints.Add(vec3);	
@@ -375,28 +300,6 @@ public class ProjectedStaticDecal : MonoBehaviour {
 					}
 				}
 			}
-			
-			//Debug.Log(vertexPoints.Count);
-			
-			/*projectionFilter.sharedMesh.Clear();
-			
-			projectionFilter.sharedMesh.vertices = vertexPoints.ToArray();
-			
-			projectionFilter.sharedMesh.triangles = indexPoints.ToArray();
-			
-			projectionFilter.sharedMesh.uv = uvPoints.ToArray();
-			
-			//Debug.Log(projectionFilter.sharedMesh.triangles.Length);
-			
-			projectionFilter.sharedMesh.RecalculateNormals();*/
-			
-			//decalMesh.Clear();
-			//decalMesh.vertices = vertexPoints.ToArray();
-			//decalMesh.triangles = indexPoints.ToArray();
-			//decalMesh.uv = uvPoints.ToArray();
-			//decalMesh.RecalculateNormals();
-			
-			//MeshCreator.calculateMeshTangents(ref decalMesh);
 		}
 	}
 	

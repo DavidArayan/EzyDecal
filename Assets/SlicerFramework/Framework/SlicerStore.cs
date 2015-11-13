@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DecalFramework;
 
 public class SlicerStore : MonoBehaviour {	
 	[HideInInspector]
@@ -64,8 +65,8 @@ public class SlicerStore : MonoBehaviour {
 			}
 			
 			slicedMeshes.Add(filter.sharedMesh);
-			
-			NearestPointTest.sliceMesh(planes, slicedMeshes, gameObject, isHallow);
+
+            MeshModifiers.SliceMeshes(planes, slicedMeshes, gameObject, isHallow);
 		}
 		
 		if (slicedMeshes.Count > 0) {
