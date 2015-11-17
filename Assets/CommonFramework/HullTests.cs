@@ -129,7 +129,8 @@ namespace DecalFramework {
         private static List<Vector3> opt = new List<Vector3>();
 
         public static void ConvexHull2DTriangulated(List<Vector3> pt, List<Vector3> tri, ref Vector3 norm) {
-            opt.Clear();
+            NearestPointTest.triangulate(pt, tri, norm);
+            /*opt.Clear();
 
             ConvexHull2D(pt, opt, ref norm);
 
@@ -145,7 +146,7 @@ namespace DecalFramework {
                 tri.Add(line1);
                 tri.Add(pt[i]);
                 tri.Add(pt[i + 1]);
-            }
+            }*/
         }
 
         /*
